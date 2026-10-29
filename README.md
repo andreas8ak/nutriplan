@@ -1,5 +1,7 @@
 # NutriPlan
 
+**Live app:** https://andreas8ak.github.io/nutriplan/ · **UML diagrams:** https://andreas8ak.github.io/nutriplan/docs/
+
 Personalized nutrition, meal planning and a care team in one app. This is the working prototype: a static web app (HTML, CSS and JavaScript modules) with a small built-in dev server. No frameworks, no build tools, no dependencies to install.
 
 ## Quick start
