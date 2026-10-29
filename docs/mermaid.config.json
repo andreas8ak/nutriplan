@@ -1,0 +1,8 @@
+{
+  "theme": "dark",
+  "flowchart": { "useMaxWidth": false, "curve": "basis" },
+  "sequence": { "useMaxWidth": false },
+  "class": { "useMaxWidth": false },
+  "state": { "useMaxWidth": false },
+  "themeVariables": { "fontFamily": "Figtree, Arial, sans-serif", "primaryColor": "#18342a", "primaryBorderColor": "#4cc38a", "primaryTextColor": "#e8eee9", "lineColor": "#8fdcb4", "clusterBkg": "#141c18", "clusterBorder": "#2a3530" }
+}

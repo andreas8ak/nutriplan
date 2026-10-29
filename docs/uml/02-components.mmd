@@ -1,0 +1,42 @@
+%% Component diagram: the prototype as it runs in the browser
+flowchart TB
+  subgraph browser["Browser"]
+    html["index.html<br/>page shell, tab bar, chat, pop-up"]
+    css["css/styles.css<br/>dark theme"]
+    subgraph appjs["js/app.js"]
+      router["Router<br/>show() · render() · ACT"]
+      subgraph screens["Screens (VIEWS)"]
+        direction LR
+        s1["Home"]
+        s2["Recipes"]
+        s3["Planner"]
+        s4["Shop"]
+        s5["Care Team"]
+        s6["Profile"]
+        s7["Smart Chef"]
+      end
+      subgraph logic["Logic"]
+        direction LR
+        l1["recs()<br/>recommendations"]
+        l2["autofill()"]
+        l3["studio()<br/>ingredient matcher"]
+        l4["shopList()<br/>list builder"]
+        l5["targets()<br/>macro targets"]
+        l6["chatReply()<br/>recipe search"]
+      end
+      state["State S<br/>defaults() · save()"]
+    end
+    data["js/data.js<br/>recipes · goals · care team"]
+    ls[("localStorage<br/>nutriplan-v2")]
+    photos[("photos/*.jpg")]
+  end
+  fonts["Google Fonts<br/>Young Serif · Figtree"]
+  html --> appjs
+  html --> css
+  router --> screens
+  screens --> logic
+  logic --> state
+  logic --> data
+  state <--> ls
+  screens --> photos
+  css -.-> fonts

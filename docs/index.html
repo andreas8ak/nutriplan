@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NutriPlan UML Diagrams</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Young+Serif&display=swap">
+  <style>
+    :root{--page:#0a0f0d;--col:#101614;--surface:#182019;--raise:#222c26;--ink:#e8eee9;--muted:#97a89e;--line:#2a3530;--leaf:#4cc38a;color-scheme:dark}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--page);color:var(--ink);font:16px/1.55 "Figtree",system-ui,sans-serif}
+    main{max-width:1100px;margin:0 auto;padding:40px max(20px,4vw) 80px;background:var(--col);min-height:100vh}
+    a{color:var(--leaf)}
+    .brand{display:flex;align-items:center;gap:10px;font-family:"Young Serif",Georgia,serif;font-size:24px}
+    h1{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:clamp(30px,5vw,44px);margin:18px 0 6px}
+    h2{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:26px;margin:0}
+    .lead{color:var(--muted);max-width:65ch;margin:0}
+    nav{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 8px}
+    nav a{text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);padding:7px 14px;border-radius:999px;font-size:14px}
+    nav a:hover{border-color:var(--leaf);color:var(--leaf)}
+    section{margin-top:34px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;scroll-margin-top:16px}
+    .kind{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--leaf)}
+    .desc{color:var(--muted);margin:6px 0 18px;max-width:70ch}
+    .fig{overflow-x:auto;background:var(--col);border-radius:14px;padding:18px;text-align:center}
+    .fig img{max-width:100%;height:auto}
+    details{margin-top:14px}
+    summary{cursor:pointer;color:var(--muted);font-size:14px}
+    pre{background:var(--page);border:1px solid var(--line);border-radius:12px;padding:14px;overflow-x:auto;font-size:13px;color:#cfe3d7}
+    footer{margin-top:40px;color:var(--muted);font-size:14px}
+  </style>
+</head>
+<body>
+<main>
+  <div class="brand"><img src="../favicon.svg" width="28" height="28" alt="">NutriPlan</div>
+  <h1>UML diagrams</h1>
+  <p class="lead">How the NutriPlan prototype is put together: who uses it, its components, the data model, two key flows, the life of a meal slot, and the planned production setup. Sources are in <code>docs/uml/*.mmd</code>; run <code>npm run uml</code> after editing one.</p>
+  <nav id="toc"></nav>
+  <div id="list"></div>
+  <footer><a href="../">← Back to the app</a></footer>
+</main>
+<script>
+  const DIAGRAMS = [
+    ["01-use-cases", "Use case diagram", "Who does what", "The two actors: users plan, shop and track; care providers message, assign programs and review what users share."],
+    ["02-components", "Component diagram", "Components in the browser", "index.html loads app.js, which holds the router, the screens, the logic functions and the saved state. Content comes from data.js; state is saved in localStorage."],
+    ["03-class-diagram", "Class diagram", "Data model", "Recipes own their ingredients and point to an optional photo and to health goals. The app state holds the meal plan, check-ins, sessions and message threads with providers."],
+    ["04-sequence-plan-and-shop", "Sequence diagram", "Auto-fill the week, then shop", "Auto-fill walks each empty slot from today, picks goal-matching recipes without repeats in a day, saves the plan, and the shopping list is built from it."],
+    ["05-sequence-check-in", "Sequence diagram", "Weekly check-in", "A check-in is validated, saved and charted. In production it would also be sent to the providers the user lets see check-ins."],
+    ["06-state-meal-slot", "State diagram", "Life of a meal slot", "A slot starts empty, becomes planned when a recipe is added, can be marked eaten, swapped or removed, and resets when the week is cleared."],
+    ["07-deployment-plan", "Deployment diagram", "Planned production setup", "Mobile, web and provider apps talk to one API, which handles sign-in, the database, photos, messaging, the AI assistant and nutrition data."]
+  ];
+  const toc = document.getElementById("toc"), list = document.getElementById("list");
+  for (const [id, kind, title, desc] of DIAGRAMS) {
+    toc.insertAdjacentHTML("beforeend", `<a href="#${id}">${title}</a>`);
+    list.insertAdjacentHTML("beforeend", `<section id="${id}">
+      <div class="kind">${kind}</div><h2>${title}</h2><p class="desc">${desc}</p>
+      <div class="fig"><img src="uml/${id}.svg" alt="${kind}: ${title}" loading="lazy"></div>
+      <details><summary>Mermaid source</summary><pre data-src="uml/${id}.mmd">Open this page with npm start to see the source.</pre></details>
+    </section>`);
+  }
+  document.querySelectorAll("pre[data-src]").forEach(pre =>
+    fetch(pre.dataset.src).then(r => r.ok ? r.text() : Promise.reject()).then(t => pre.textContent = t).catch(() => {}));
+</script>
+</body>
+</html>

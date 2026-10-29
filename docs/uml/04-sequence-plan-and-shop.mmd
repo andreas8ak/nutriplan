@@ -1,0 +1,26 @@
+%% Sequence diagram: auto-fill the week, then build the shopping list
+sequenceDiagram
+  actor U as User
+  participant P as Planner screen
+  participant L as autofill()
+  participant D as RECIPES (data.js)
+  participant S as State S
+  participant LS as localStorage
+  participant Sh as Shop screen
+  U->>P: Tap Auto-Fill Week
+  P->>L: ACT.autofill
+  loop each day from today, each empty slot
+    L->>D: recipes for this meal type
+    D-->>L: candidates
+    L->>L: keep goal matches, skip repeats in the day
+    L->>S: plan[day][slot] = recipe id
+  end
+  L-->>P: number of slots filled
+  P->>S: render()
+  S->>LS: save()
+  P-->>U: Toast: filled N empty slots
+  U->>P: Tap Shop This Week
+  P->>Sh: go(shop)
+  Sh->>S: shopList()
+  S-->>Sh: ingredients merged by item, grouped by aisle
+  Sh-->>U: Shopping list with tick boxes

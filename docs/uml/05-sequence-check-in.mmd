@@ -1,0 +1,18 @@
+%% Sequence diagram: weekly check-in shared with the care team
+sequenceDiagram
+  actor U as User
+  participant C as Care Team screen
+  participant S as State S
+  participant LS as localStorage
+  participant T as Care team
+  U->>C: Enter weight, sleep, energy, notes
+  U->>C: Tap Send check-in
+  C->>C: submitCheckin() checks the numbers
+  C->>S: add to checkins
+  S->>LS: save()
+  C-->>U: Toast and updated weight chart
+  Note over S,T: Prototype: data stays on this device
+  opt Production version
+    S->>T: share with providers who can see Check-ins
+    T-->>U: reply in Messages
+  end

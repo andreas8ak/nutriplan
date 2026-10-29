@@ -1,0 +1,19 @@
+%% Use case diagram: who does what in NutriPlan
+flowchart LR
+  user("User")
+  pro("Care provider")
+  uc1("Set goals and calorie target")
+  uc2("Browse and search recipes")
+  uc3("Find recipes from fridge ingredients")
+  uc4("Plan the week / auto-fill")
+  uc5("Mark meals as eaten")
+  uc6("Generate shopping list")
+  uc7("Ask Smart Chef")
+  uc8("Message care team")
+  uc9("Send weekly check-in")
+  uc10("Book a session")
+  uc11("Choose what to share")
+  uc12("Assign program and habits")
+  uc13("Review shared plans and check-ins")
+  user --- uc1 & uc2 & uc3 & uc4 & uc5 & uc6 & uc7 & uc8 & uc9 & uc10 & uc11
+  uc8 & uc10 & uc12 & uc13 --- pro

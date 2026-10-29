@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>NutriPlan</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Young+Serif&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="device" id="device"><div class="screen" id="screen">
+<div class="shell">
+  <main>
+    <div class="topbar">
+      <button class="brand" type="button" data-act="go" data-v="today"><span id="logo2"></span>NutriPlan</button>
+      <button class="avatar" type="button" data-act="go" data-v="profile" aria-label="Profile">A</button>
+    </div>
+    <div id="view" class="view"></div>
+  </main>
+</div>
+</div>
+<nav class="tabbar" id="tabbar" aria-label="Main"></nav>
+<button class="fab" id="fab" type="button" aria-label="Open Smart Chef" data-act="chat"></button>
+<section class="chat" id="chat" hidden aria-label="Smart Chef">
+  <header><div><b>Smart Chef</b><div class="muted" style="font-size:12px">Searches the NutriPlan recipe book</div></div><button class="iconbtn" type="button" data-act="chat" aria-label="Close chat" id="chatx"></button></header>
+  <div class="convo" id="chatlog"></div>
+  <form id="chatform"><input class="input" id="chatin" placeholder="Try: quick Chinese dinner, high protein" autocomplete="off"><button class="btn primary" type="submit" id="chatsend">Ask</button></form>
+</section>
+<div class="scrim" id="scrim" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Details"></div></div>
+<div class="toast" id="toast" hidden role="status"></div>
+</div>
+
+<!-- app.js imports js/data.js (recipes, goals, care-team content) -->
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

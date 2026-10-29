@@ -1,0 +1,24 @@
+%% Deployment diagram: planned production architecture
+flowchart LR
+  subgraph clients["Clients"]
+    ios["iOS app"]
+    android["Android app"]
+    web["Web app"]
+    portal["Provider portal"]
+  end
+  subgraph cloud["Cloud backend (planned)"]
+    api["API server"]
+    auth["Sign-in<br/>email · Google"]
+    db[("Database<br/>users · plans · check-ins")]
+    files[("File storage<br/>photos")]
+    chat["Real-time messaging"]
+    ai["AI service<br/>Smart Chef · fridge photos"]
+    nutri["Nutrition data service"]
+  end
+  ios & android & web & portal --> api
+  api --> auth
+  api --> db
+  api --> files
+  api --> chat
+  api --> ai
+  api --> nutri

@@ -1,0 +1,92 @@
+%% Class diagram: the data model
+classDiagram
+  direction LR
+  class Recipe {
+    +string id
+    +string name
+    +string cuisine
+    +string meal
+    +number minutes
+    +number kcal
+    +number protein
+    +number carbs
+    +number fat
+    +string[] goals
+    +string[] steps
+  }
+  class Ingredient {
+    +string quantity
+    +string item
+    +string aisle
+  }
+  class Photo {
+    +string src
+    +string photographer
+    +string license
+    +string url
+  }
+  class Goal {
+    +string id
+    +string label
+    +string description
+  }
+  class AppState {
+    +string[] goals
+    +number kcalGoal
+    +Map plan
+    +Map eaten
+    +Map shoppingTicks
+    +save()
+  }
+  class MealSlot {
+    +string date
+    +string slot
+    +string recipeId
+    +bool eaten
+  }
+  class Provider {
+    +string id
+    +string name
+    +string role
+    +string[] canSee
+  }
+  class Message {
+    +string from
+    +string text
+    +string time
+  }
+  class CheckIn {
+    +string date
+    +number weightKg
+    +number sleepHours
+    +number energy
+    +string notes
+  }
+  class Session {
+    +string providerId
+    +datetime when
+    +string format
+  }
+  class Workout {
+    +string day
+    +string name
+    +number minutes
+    +bool done
+  }
+  class Habit {
+    +string name
+    +bool[] week
+  }
+  Recipe "1" *-- "many" Ingredient : ingredients
+  Recipe "1" --> "0..1" Photo : photo
+  Recipe "many" --> "many" Goal : tagged with
+  AppState "1" --> "many" Goal : selected
+  AppState "1" *-- "many" MealSlot : plan
+  MealSlot "many" --> "1" Recipe : uses
+  AppState "1" *-- "many" CheckIn : check-ins
+  AppState "1" *-- "many" Session : sessions
+  AppState "1" *-- "many" Message : threads
+  Message "many" --> "1" Provider : with
+  Session "many" --> "1" Provider : with
+  Provider "1" --> "many" Workout : assigns
+  Provider "1" --> "many" Habit : sets

@@ -1,0 +1,10 @@
+%% State diagram: one meal slot in the planner
+stateDiagram-v2
+  direction LR
+  [*] --> Empty
+  Empty --> Planned: add meal or auto-fill
+  Planned --> Planned: swap meal
+  Planned --> Eaten: tick
+  Eaten --> Planned: untick
+  Planned --> Empty: remove or clear week
+  Eaten --> Empty: remove or clear week
